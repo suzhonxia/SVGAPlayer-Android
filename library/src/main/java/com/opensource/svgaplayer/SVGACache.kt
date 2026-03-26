@@ -28,6 +28,8 @@ object SVGACache {
             return field
         }
 
+    // 缓存标记
+    private var cacheMark: String = ""
 
     fun onCreate(context: Context?) {
         onCreate(context, Type.DEFAULT)
@@ -39,6 +41,10 @@ object SVGACache {
         cacheDir = "${context.cacheDir.absolutePath}/svga/"
         File(cacheDir).takeIf { !it.exists() }?.mkdirs()
         this.type = type
+    }
+
+    fun setMark(mark: String) {
+        cacheMark = mark
     }
 
     /**
@@ -109,11 +115,11 @@ object SVGACache {
     }
 
     fun buildSvgaFile(cacheKey: String): File {
-        return File("$cacheDir$cacheKey.svga")
+        return File("$cacheDir$cacheMark$cacheKey.svga")
     }
 
     fun buildAudioFile(audio: String): File {
-        return File("$cacheDir$audio.mp3")
+        return File("$cacheDir$cacheMark$audio.mp3")
     }
 
 }
